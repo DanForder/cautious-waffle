@@ -1,0 +1,12 @@
+.input {
+  max-width: 5rem;
+
+  &--hide-label {
+    visibility: hidden;
+    position: absolute;
+  }
+
+  input {
+    width: 100%;
+  }
+}

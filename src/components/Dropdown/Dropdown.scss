@@ -1,0 +1,8 @@
+.dropdown {
+  &--hide-label {
+    label {
+      visibility: hidden;
+      position: absolute;
+    }
+  }
+}
