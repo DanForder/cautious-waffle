@@ -2,6 +2,7 @@ import { useState } from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Input from "../../components/Input/Input";
 import Layout from "../../components/Layout/Layout";
+import { getCostResult, getDistanceResult } from "../../utils/convertUtils";
 
 const Home = () => {
   const [carEfficiency, setCarEfficiency] = useState({
@@ -14,12 +15,29 @@ const Home = () => {
     number: 1.55,
     liquidUnit: "Litre",
   });
-  const [result, setResult] = useState(null);
+  const [costResult, setCostResult] = useState(null);
+  const [distanceResult, setDistanceResult] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(carEfficiency, fuelCost);
-    setResult(67.6);
+
+    setCostResult(
+      getCostResult(
+        carEfficiency.number,
+        carEfficiency.liquidUnit,
+        fuelCost.number,
+        fuelCost.liquidUnit
+      )
+    );
+
+    setDistanceResult(
+      getDistanceResult(
+        carEfficiency.number,
+        carEfficiency.liquidUnit,
+        fuelCost.number,
+        fuelCost.liquidUnit
+      )
+    );
   };
 
   const getPropertyNameFromId = (id) => {
@@ -42,7 +60,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <h1>Fuel Calculator</h1>
+      <h1>Fuel Cost Calculator</h1>
       <form
         onSubmit={handleSubmit}
         style={{
@@ -81,7 +99,7 @@ const Home = () => {
               handleUpdateState(e, setCarEfficiency);
             }}
             id="liquid-unit-car"
-            options={["Gallon", "Litre"]}
+            options={["Gallon"]}
             label="Liquid Unit"
             hideLabel
           />
@@ -119,7 +137,7 @@ const Home = () => {
             }}
             value={fuelCost.liquidUnit}
             id="liquid-unit-fuel"
-            options={["Gallon", "Litre"]}
+            options={["Litre"]}
             label="Liquid Unit"
             hideLabel
           />
@@ -133,13 +151,20 @@ const Home = () => {
         </button>
       </form>
 
-      {result && (
+      {costResult && (
         <p>
           Your car costs {fuelCost.currencyUnit}
-          {result} per{" "}
+          {costResult} per{" "}
           {carEfficiency.distanceUnit
             .substring(0, carEfficiency.distanceUnit.length - 1)
             .toLowerCase()}
+        </p>
+      )}
+
+      {distanceResult && (
+        <p>
+          For every {fuelCost.currencyUnit}1, Your car can go {distanceResult}{" "}
+          {carEfficiency.distanceUnit.toLowerCase()}
         </p>
       )}
     </Layout>
