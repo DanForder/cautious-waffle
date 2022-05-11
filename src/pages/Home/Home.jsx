@@ -66,7 +66,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <h1>Fuel Price Calculator</h1>
+      <h1>Fuel Cost Calculator</h1>
       <form
         onSubmit={handleSubmit}
         style={{
