@@ -105,7 +105,7 @@ const Home = () => {
               handleUpdateState(e, setVehicleEfficiency);
             }}
             id="liquid-unit-vehicle"
-            options={["Gallon"]}
+            options={["Gallon", "Litre"]}
             label="Liquid Unit"
             hideLabel
           />
@@ -142,7 +142,7 @@ const Home = () => {
             }}
             value={fuelCost.liquidUnit}
             id="liquid-unit-fuel"
-            options={["Litre"]}
+            options={["Litre", "Gallon"]}
             label="Liquid Unit"
             hideLabel
           />
