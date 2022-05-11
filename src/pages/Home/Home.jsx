@@ -3,17 +3,18 @@ import Button from "../../components/Button/Button";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import InputField from "../../components/InputField/InputField";
 import Layout from "../../components/Layout/Layout";
+import useLocalStorageState from "../../hooks/useLocalStorageState";
 import { getCostResult, getDistanceResult } from "../../utils/convertUtils";
 
 const Home = () => {
-  const [carEfficiency, setCarEfficiency] = useState({
+  const [carEfficiency, setCarEfficiency] = useLocalStorageState("car-pref", {
     distanceUnit: "Miles",
     liquidUnit: "Gallon",
-    number: 41.4,
+    number: 40,
   });
-  const [fuelCost, setFuelCost] = useState({
+  const [fuelCost, setFuelCost] = useLocalStorageState("fuel-pref", {
     currencyUnit: "£",
-    number: 1.55,
+    number: (1.5).toFixed(2),
     liquidUnit: "Litre",
   });
   const [costResult, setCostResult] = useState(null);
