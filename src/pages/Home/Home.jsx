@@ -164,7 +164,7 @@ const Home = () => {
           </p>
           <p>
             That&apos;s {fuelCost.currencyUnit}
-            {costResult * 100} every 100 miles
+            {(costResult * 100).toFixed(2)} every 100 miles
           </p>
         </>
       )}
