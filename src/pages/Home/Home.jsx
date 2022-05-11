@@ -1,6 +1,7 @@
 import { useState } from "react";
+import Button from "../../components/Button/Button";
 import Dropdown from "../../components/Dropdown/Dropdown";
-import Input from "../../components/Input/Input";
+import InputField from "../../components/InputField/InputField";
 import Layout from "../../components/Layout/Layout";
 import { getCostResult, getDistanceResult } from "../../utils/convertUtils";
 
@@ -72,7 +73,7 @@ const Home = () => {
       >
         <p>My car does...</p>
         <div style={{ display: "flex", gap: "10px" }}>
-          <Input
+          <InputField
             value={carEfficiency.number}
             onChange={(e) => {
               handleUpdateState(e, setCarEfficiency);
@@ -106,7 +107,6 @@ const Home = () => {
         </div>
 
         <br />
-        <br />
 
         <p>The cost of fuel is...</p>
         <div style={{ display: "flex", gap: "10px" }}>
@@ -120,7 +120,7 @@ const Home = () => {
             label="Currency Unit"
             hideLabel
           />
-          <Input
+          <InputField
             onChange={(e) => {
               handleUpdateState(e, setFuelCost);
             }}
@@ -144,26 +144,29 @@ const Home = () => {
         </div>
 
         <br />
-        <br />
 
-        <button style={{ padding: "0.5rem" }} type="submit">
-          Submit
-        </button>
+        <Button label="Submit" type="submit" />
       </form>
 
       {costResult && (
-        <p>
-          Your car costs {fuelCost.currencyUnit}
-          {costResult} per{" "}
-          {carEfficiency.distanceUnit
-            .substring(0, carEfficiency.distanceUnit.length - 1)
-            .toLowerCase()}
-        </p>
+        <>
+          <p>
+            Your car costs {fuelCost.currencyUnit}
+            {costResult} per{" "}
+            {carEfficiency.distanceUnit
+              .substring(0, carEfficiency.distanceUnit.length - 1)
+              .toLowerCase()}
+          </p>
+          <p>
+            That&apos;s {fuelCost.currencyUnit}
+            {costResult * 100} every 100 miles
+          </p>
+        </>
       )}
 
       {distanceResult && (
         <p>
-          For every {fuelCost.currencyUnit}1, Your car can go {distanceResult}{" "}
+          Or for {fuelCost.currencyUnit}1, your car can go {distanceResult}{" "}
           {carEfficiency.distanceUnit.toLowerCase()}
         </p>
       )}

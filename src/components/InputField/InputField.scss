@@ -1,15 +1,17 @@
 @use "../../styles/variables" as *;
 
-.dropdown {
+.input-field {
+  max-width: 5rem;
+
   &--hide-label {
-    .dropdown__label {
+    .input-field__label {
       visibility: hidden;
       position: absolute;
     }
   }
 
-  .dropdown__select,
-  .dropdown__option {
+  .input-field__input {
+    width: 100%;
     color: $color-text-variant;
   }
 }
