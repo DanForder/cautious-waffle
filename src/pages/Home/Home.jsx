@@ -7,11 +7,14 @@ import useLocalStorageState from "../../hooks/useLocalStorageState";
 import { getCostResult, getDistanceResult } from "../../utils/convertUtils";
 
 const Home = () => {
-  const [carEfficiency, setCarEfficiency] = useLocalStorageState("car-pref", {
-    distanceUnit: "Miles",
-    liquidUnit: "Gallon",
-    number: 40,
-  });
+  const [vehicleEfficiency, setVehicleEfficiency] = useLocalStorageState(
+    "vehicle-pref",
+    {
+      distanceUnit: "Miles",
+      liquidUnit: "Gallon",
+      number: 40,
+    }
+  );
   const [fuelCost, setFuelCost] = useLocalStorageState("fuel-pref", {
     currencyUnit: "£",
     number: (1.5).toFixed(2),
@@ -25,8 +28,8 @@ const Home = () => {
 
     setCostResult(
       getCostResult(
-        carEfficiency.number,
-        carEfficiency.liquidUnit,
+        vehicleEfficiency.number,
+        vehicleEfficiency.liquidUnit,
         fuelCost.number,
         fuelCost.liquidUnit
       )
@@ -34,8 +37,8 @@ const Home = () => {
 
     setDistanceResult(
       getDistanceResult(
-        carEfficiency.number,
-        carEfficiency.liquidUnit,
+        vehicleEfficiency.number,
+        vehicleEfficiency.liquidUnit,
         fuelCost.number,
         fuelCost.liquidUnit
       )
@@ -43,7 +46,8 @@ const Home = () => {
   };
 
   const getPropertyNameFromId = (id) => {
-    if (id === "car-efficiency-input" || id === "fuel-price") return "number";
+    if (id === "vehicle-efficiency-input" || id === "fuel-price")
+      return "number";
     if (id === "distance-unit") return "distanceUnit";
     if (id === "currency-unit") return "currencyUnit";
     if (id.includes("liquid-unit")) return "liquidUnit";
@@ -62,7 +66,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <h1>Fuel Cost Calculator</h1>
+      <h1>Fuel Price Calculator</h1>
       <form
         onSubmit={handleSubmit}
         style={{
@@ -72,22 +76,22 @@ const Home = () => {
           margin: "10px",
         }}
       >
-        <p>My car does...</p>
+        <p>My vehicle does...</p>
         <div style={{ display: "flex", gap: "10px" }}>
           <InputField
-            value={carEfficiency.number}
+            value={vehicleEfficiency.number}
             onChange={(e) => {
-              handleUpdateState(e, setCarEfficiency);
+              handleUpdateState(e, setVehicleEfficiency);
             }}
             type="number"
-            id="car-efficiency-input"
-            label="Car Efficiency"
+            id="vehicle-efficiency-input"
+            label="Vehicle Efficiency"
             hideLabel
           />
           <Dropdown
-            value={carEfficiency.distanceUnit}
+            value={vehicleEfficiency.distanceUnit}
             onChange={(e) => {
-              handleUpdateState(e, setCarEfficiency);
+              handleUpdateState(e, setVehicleEfficiency);
             }}
             id="distance-unit"
             options={["Miles", "Kilometres"]}
@@ -96,11 +100,11 @@ const Home = () => {
           />
           <span>per</span>
           <Dropdown
-            value={carEfficiency.liquidUnit}
+            value={vehicleEfficiency.liquidUnit}
             onChange={(e) => {
-              handleUpdateState(e, setCarEfficiency);
+              handleUpdateState(e, setVehicleEfficiency);
             }}
-            id="liquid-unit-car"
+            id="liquid-unit-vehicle"
             options={["Gallon"]}
             label="Liquid Unit"
             hideLabel
@@ -152,10 +156,10 @@ const Home = () => {
       {costResult && (
         <>
           <p>
-            Your car costs {fuelCost.currencyUnit}
+            Your fuel costs {fuelCost.currencyUnit}
             {costResult} per{" "}
-            {carEfficiency.distanceUnit
-              .substring(0, carEfficiency.distanceUnit.length - 1)
+            {vehicleEfficiency.distanceUnit
+              .substring(0, vehicleEfficiency.distanceUnit.length - 1)
               .toLowerCase()}
           </p>
           <p>
@@ -167,8 +171,8 @@ const Home = () => {
 
       {distanceResult && (
         <p>
-          Or for {fuelCost.currencyUnit}1, your car can go {distanceResult}{" "}
-          {carEfficiency.distanceUnit.toLowerCase()}
+          Or for {fuelCost.currencyUnit}1, your vehicle can go {distanceResult}{" "}
+          {vehicleEfficiency.distanceUnit.toLowerCase()}
         </p>
       )}
     </Layout>
